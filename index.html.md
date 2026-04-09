@@ -1,0 +1,899 @@
+#   
+  
+  
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>Tripoupa — Travel Smarter, Spend Less</title>  
+  
+  <!-- Fonts -->  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />  
+  <!-- Icons -->  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />  
+  <!-- Styles -->  
+  <link rel="stylesheet" href="styles.css" />  
+</head>  
+<body>  
+  
+<!-- ══════════════════════════════════════  
+     NAVBAR  
+══════════════════════════════════════ -->  
+<nav id="navbar">  
+  <div class="nav-inner">  
+    <a class="logo" onclick="showPage('home')">  
+      <div class="logo-icon"><i class="fa-solid fa-plane"></i></div>  
+      <span class="logo-text">Tripoupa</span>  
+    </a>  
+    <div class="nav-links">  
+      <a onclick="showPage('home')"    class="active" id="nav-home">Home</a>  
+      <a onclick="showPage('results')"            id="nav-results">Explore</a>  
+      <a onclick="showPage('ai')"                 id="nav-ai">AI Assistant <span class="badge-new">NEW</span></a>  
+      <a onclick="showToast('📧 Newsletter coming soon!')">Deals</a>  
+      <a onclick="showToast('🗺️ Destinations page coming soon!')">Destinations</a>  
+    </div>  
+    <div class="nav-cta">  
+      <button class="btn btn-primary" onclick="showPage('ai')">  
+        <i class="fa-solid fa-robot"></i> Ask AI  
+      </button>  
+    </div>  
+  </div>  
+</nav>  
+  
+<!-- ══════════════════════════════════════  
+     HOME PAGE  
+══════════════════════════════════════ -->  
+<div class="page active" id="page-home">  
+  
+  <!-- HERO -->  
+  <div class="hero">  
+    <div class="hero-particles" id="particles"></div>  
+    <div class="hero-inner">  
+      <div class="hero-badge"><span class="dot"></span> AI-Powered Travel Intelligence</div>  
+      <h1>Travel Smarter.<br/>Save <span>Hundreds</span>.</h1>  
+      <p>Tripoupa combines flights, hotels &amp; experiences into optimized packages — so you always find the cheapest, smartest way to travel.</p>  
+  
+      <!-- Search Card -->  
+      <div class="search-card">  
+        <div class="search-tabs">  
+          <button class="search-tab active" onclick="setTab(this)">✈️ Round Trip</button>  
+          <button class="search-tab"        onclick="setTab(this)">→ One Way</button>  
+          <button class="search-tab"        onclick="setTab(this)">📦 Packages</button>  
+          <button class="search-tab"        onclick="setTab(this)">🏨 Hotel Only</button>  
+        </div>  
+        <div class="search-grid">  
+          <div class="search-field">  
+            <label>From</label>  
+            <i class="fa-solid fa-location-dot field-icon"></i>  
+            <input type="text" placeholder="Paris, CDG" value="Paris, CDG" />  
+          </div>  
+          <div class="search-field">  
+            <label>To</label>  
+            <i class="fa-solid fa-map-marker-alt field-icon"></i>  
+            <input type="text" placeholder="Anywhere 🌍" id="dest-input" />  
+          </div>  
+          <div class="search-field">  
+            <label>Depart</label>  
+            <i class="fa-solid fa-calendar field-icon"></i>  
+            <input type="date" id="depart-date" />  
+          </div>  
+          <div class="search-field">  
+            <label>Return</label>  
+            <i class="fa-solid fa-calendar-check field-icon"></i>  
+            <input type="date" id="return-date" />  
+          </div>  
+        </div>  
+        <div class="search-bottom">  
+          <div class="budget-slider">  
+            <label>Total Budget <span id="budget-display">€800</span></label>  
+            <input type="range" min="200" max="5000" value="800" step="50" oninput="updateBudget(this.value)" />  
+          </div>  
+          <div class="search-btn-wrap">  
+            <button class="btn btn-primary btn-lg" onclick="showPage('results')">  
+              <i class="fa-solid fa-magnifying-glass"></i> Find My Trip  
+            </button>  
+          </div>  
+        </div>  
+        <div class="ai-hint" onclick="showPage('ai')">  
+          <i class="fa-solid fa-robot" style="color:var(--purple)"></i>  
+          <span>💬 <strong>Ask our AI:</strong> "I want a beach trip for 2 under 600€" — Try the smart assistant →</span>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- STATS BAR -->  
+  <div class="stats-bar">  
+    <div class="stats-inner">  
+      <div class="stat-item"><div class="stat-val">2.4M+</div><div class="stat-label">Trips compared</div></div>  
+      <div class="stat-item"><div class="stat-val">€127</div><div class="stat-label">Avg. savings per trip</div></div>  
+      <div class="stat-item"><div class="stat-val">180+</div><div class="stat-label">Destinations</div></div>  
+      <div class="stat-item"><div class="stat-val">94%</div><div class="stat-label">Happy travelers</div></div>  
+      <div class="stat-item"><div class="stat-val">34</div><div class="stat-label">Partner sites</div></div>  
+    </div>  
+  </div>  
+  
+  <!-- FEATURED TRIPS -->  
+  <div class="section">  
+    <span class="section-label">🔥 Hot Deals</span>  
+    <h2 class="section-title">Cheapest Trips Right Now</h2>  
+    <p class="section-sub">AI-picked combinations updated every 15 minutes. Prices include flight + hotel.</p>  
+    <div class="trips-grid">  
+  
+      <div class="trip-card" onclick="showPage('detail')">  
+        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?w=600')">  
+          <div class="trip-badge">🔥 Best Value</div>  
+          <div class="trip-dest">🇵🇹 Lisbon</div>  
+        </div>  
+        <div class="trip-info">  
+          <div class="trip-meta">  
+            <span class="trip-tag">✈️ Direct</span>  
+            <span class="trip-tag">🏨 4★ Hotel</span>  
+            <span class="trip-tag">5 nights</span>  
+          </div>  
+          <div class="trip-prices">  
+            <span class="trip-price">€389</span>  
+            <span class="trip-was">€521</span>  
+            <span class="trip-save">Save €132</span>  
+          </div>  
+          <div class="trip-details"><span>✈️ Paris → LIS</span><span>📅 Jun 14–19</span></div>  
+        </div>  
+      </div>  
+  
+      <div class="trip-card" onclick="showPage('detail')">  
+        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600')">  
+          <div class="trip-badge">❄️ Low Season</div>  
+          <div class="trip-dest">🇬🇷 Athens</div>  
+        </div>  
+        <div class="trip-info">  
+          <div class="trip-meta">  
+            <span class="trip-tag">✈️ 1 Stop</span>  
+            <span class="trip-tag">🏨 3★ Hotel</span>  
+            <span class="trip-tag">7 nights</span>  
+          </div>  
+          <div class="trip-prices">  
+            <span class="trip-price">€298</span>  
+            <span class="trip-was">€455</span>  
+            <span class="trip-save">Save €157</span>  
+          </div>  
+          <div class="trip-details"><span>✈️ Paris → ATH</span><span>📅 May 22–29</span></div>  
+        </div>  
+      </div>  
+  
+      <div class="trip-card" onclick="showPage('detail')">  
+        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=600')">  
+          <div class="trip-badge">🏖️ Beach</div>  
+          <div class="trip-dest">🇪🇸 Barcelona</div>  
+        </div>  
+        <div class="trip-info">  
+          <div class="trip-meta">  
+            <span class="trip-tag">✈️ Direct</span>  
+            <span class="trip-tag">🏨 4★ Hotel</span>  
+            <span class="trip-tag">4 nights</span>  
+          </div>  
+          <div class="trip-prices">  
+            <span class="trip-price">€342</span>  
+            <span class="trip-was">€489</span>  
+            <span class="trip-save">Save €147</span>  
+          </div>  
+          <div class="trip-details"><span>✈️ Paris → BCN</span><span>📅 Jul 8–12</span></div>  
+        </div>  
+      </div>  
+  
+      <div class="trip-card" onclick="showPage('detail')">  
+        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1548013146-72479768bada?w=600')">  
+          <div class="trip-badge">🌺 Trending</div>  
+          <div class="trip-dest">🇲🇦 Marrakech</div>  
+        </div>  
+        <div class="trip-info">  
+          <div class="trip-meta">  
+            <span class="trip-tag">✈️ Direct</span>  
+            <span class="trip-tag">🏨 5★ Riad</span>  
+            <span class="trip-tag">6 nights</span>  
+          </div>  
+          <div class="trip-prices">  
+            <span class="trip-price">€419</span>  
+            <span class="trip-was">€612</span>  
+            <span class="trip-save">Save €193</span>  
+          </div>  
+          <div class="trip-details"><span>✈️ Paris → RAK</span><span>📅 Aug 2–8</span></div>  
+        </div>  
+      </div>  
+  
+      <div class="trip-card" onclick="showPage('detail')">  
+        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1555990538-1078ea06e58e?w=600')">  
+          <div class="trip-badge">🏰 City Break</div>  
+          <div class="trip-dest">🇮🇹 Rome</div>  
+        </div>  
+        <div class="trip-info">  
+          <div class="trip-meta">  
+            <span class="trip-tag">✈️ Direct</span>  
+            <span class="trip-tag">🏨 4★ Hotel</span>  
+            <span class="trip-tag">3 nights</span>  
+          </div>  
+          <div class="trip-prices">  
+            <span class="trip-price">€276</span>  
+            <span class="trip-was">€381</span>  
+            <span class="trip-save">Save €105</span>  
+          </div>  
+          <div class="trip-details"><span>✈️ Paris → FCO</span><span>📅 Sep 5–8</span></div>  
+        </div>  
+      </div>  
+  
+      <div class="trip-card" onclick="showPage('detail')">  
+        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600')">  
+          <div class="trip-badge">🌊 Sea &amp; Sun</div>  
+          <div class="trip-dest">🇹🇷 Istanbul</div>  
+        </div>  
+        <div class="trip-info">  
+          <div class="trip-meta">  
+            <span class="trip-tag">✈️ Direct</span>  
+            <span class="trip-tag">🏨 5★ Hotel</span>  
+            <span class="trip-tag">7 nights</span>  
+          </div>  
+          <div class="trip-prices">  
+            <span class="trip-price">€487</span>  
+            <span class="trip-was">€698</span>  
+            <span class="trip-save">Save €211</span>  
+          </div>  
+          <div class="trip-details"><span>✈️ Paris → IST</span><span>📅 Oct 10–17</span></div>  
+        </div>  
+      </div>  
+  
+    </div>  
+    <div style="text-align:center;margin-top:2rem">  
+      <button class="btn btn-ghost btn-lg" onclick="showPage('results')">  
+        <i class="fa-solid fa-compass"></i> See All 180+ Destinations  
+      </button>  
+    </div>  
+  </div>  
+  
+  <!-- HOW IT WORKS -->  
+  <div style="background:#fff;padding:5rem 2rem;">  
+    <div style="max-width:1280px;margin:auto">  
+      <span class="section-label">🧠 How It Works</span>  
+      <h2 class="section-title">The Tripoupa Advantage</h2>  
+      <p class="section-sub">Our AI engine analyses millions of price combinations to build the cheapest possible trip — in seconds.</p>  
+      <div class="how-grid">  
+        <div class="how-card">  
+          <div class="how-icon" style="background:var(--blue-light);color:var(--blue)"><i class="fa-solid fa-magnifying-glass"></i></div>  
+          <div class="how-num">Step 01</div>  
+          <div class="how-title">Tell us your dream</div>  
+          <div class="how-desc">Enter your budget, destination, and dates — or ask our AI assistant in plain language.</div>  
+        </div>  
+        <div class="how-card">  
+          <div class="how-icon" style="background:var(--green-light);color:var(--green)"><i class="fa-solid fa-robot"></i></div>  
+          <div class="how-num">Step 02</div>  
+          <div class="how-title">AI crunches the data</div>  
+          <div class="how-desc">We scan 34 partner sites, compare 10,000+ combos and find hidden savings invisible to standard search.</div>  
+        </div>  
+        <div class="how-card">  
+          <div class="how-icon" style="background:rgba(124,58,237,.1);color:var(--purple)"><i class="fa-solid fa-chart-line"></i></div>  
+          <div class="how-num">Step 03</div>  
+          <div class="how-title">See smart results</div>  
+          <div class="how-desc">Get ranked results with savings clearly highlighted — cheapest dates, alt airports, bundle deals.</div>  
+        </div>  
+        <div class="how-card">  
+          <div class="how-icon" style="background:rgba(255,107,53,.1);color:var(--orange)"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>  
+          <div class="how-num">Step 04</div>  
+          <div class="how-title">Book with a trusted partner</div>  
+          <div class="how-desc">We redirect you to verified booking sites — you always pay the real price with zero markup.</div>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- AI ASSISTANT PREVIEW -->  
+  <div class="section">  
+    <div class="ai-preview-wrap">  
+      <div class="ai-preview-left">  
+        <span class="section-label" style="background:rgba(255,255,255,.1);color:#a5c8ff">🤖 AI Assistant</span>  
+        <h2>Your Personal Travel Advisor — Available 24/7</h2>  
+        <p>Just describe what you want in plain language. Our AI understands budgets, preferences, travel styles, and even vague requests like "somewhere warm and cheap".</p>  
+        <ul style="color:rgba(255,255,255,.7);list-style:none;margin-bottom:1.5rem;">  
+          <li style="margin-bottom:.5rem">✅ Understands natural language</li>  
+          <li style="margin-bottom:.5rem">✅ Suggests alternatives you'd never think of</li>  
+          <li style="margin-bottom:.5rem">✅ Finds deals based on your calendar</li>  
+          <li>✅ Learns your preferences over time</li>  
+        </ul>  
+        <button class="btn btn-green btn-lg" onclick="showPage('ai')"><i class="fa-solid fa-comments"></i> Chat with AI Now</button>  
+      </div>  
+      <div class="ai-chat-demo">  
+        <div class="chat-msg user">  
+          <div class="chat-avatar">👤</div>  
+          <div class="chat-bubble">I want a warm destination under 300€ from London for a week</div>  
+        </div>  
+        <div class="chat-msg ai">  
+          <div class="chat-avatar" style="background:linear-gradient(135deg,var(--blue),var(--purple))">🤖</div>  
+          <div class="chat-bubble">Perfect! I found 3 amazing options within your budget. The best deal is <strong>Marrakech from £247</strong> — that's 7 nights + flights. Want me to show all options?</div>  
+        </div>  
+        <div class="chat-msg user">  
+          <div class="chat-avatar">👤</div>  
+          <div class="chat-bubble">Yes! And can you check flexible dates?</div>  
+        </div>  
+        <div class="chat-msg ai">  
+          <div class="chat-avatar" style="background:linear-gradient(135deg,var(--blue),var(--purple))">🤖</div>  
+          <div class="chat-bubble">Travelling 2 days earlier saves you <strong>£38</strong>! 🎉 Marrakech Jun 12 = £209 total. That's 28% below average price right now.</div>  
+        </div>  
+        <div class="chat-input-demo">  
+          <input placeholder="Ask anything about travel..." readonly />  
+          <button class="btn btn-primary" onclick="showPage('ai')">Try it →</button>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- BUDGET SUGGESTIONS -->  
+  <div style="background:#fff;padding:5rem 2rem;">  
+    <div style="max-width:1280px;margin:auto">  
+      <span class="section-label">💰 By Budget</span>  
+      <h2 class="section-title">Where Can You Go?</h2>  
+      <p class="section-sub">Find your perfect trip based on how much you want to spend — per person, flight + hotel included.</p>  
+      <div class="budget-grid">  
+        <div class="budget-card" onclick="showPage('results')">  
+          <span class="budget-emoji">🎒</span>  
+          <div><div class="budget-range">Under €200</div><div class="budget-desc">Budget city breaks &amp; weekend getaways</div></div>  
+          <i class="fa-solid fa-chevron-right budget-arrow"></i>  
+        </div>  
+        <div class="budget-card" onclick="showPage('results')">  
+          <span class="budget-emoji">✈️</span>  
+          <div><div class="budget-range">€200 – €400</div><div class="budget-desc">European escapes with great hotels</div></div>  
+          <i class="fa-solid fa-chevron-right budget-arrow"></i>  
+        </div>  
+        <div class="budget-card" onclick="showPage('results')">  
+          <span class="budget-emoji">🌴</span>  
+          <div><div class="budget-range">€400 – €700</div><div class="budget-desc">Exotic destinations &amp; beach resorts</div></div>  
+          <i class="fa-solid fa-chevron-right budget-arrow"></i>  
+        </div>  
+        <div class="budget-card" onclick="showPage('results')">  
+          <span class="budget-emoji">🌏</span>  
+          <div><div class="budget-range">€700 – €1200</div><div class="budget-desc">Long-haul adventures &amp; Asia trips</div></div>  
+          <i class="fa-solid fa-chevron-right budget-arrow"></i>  
+        </div>  
+        <div class="budget-card" onclick="showPage('results')">  
+          <span class="budget-emoji">💎</span>  
+          <div><div class="budget-range">€1200+</div><div class="budget-desc">Luxury packages &amp; business class</div></div>  
+          <i class="fa-solid fa-chevron-right budget-arrow"></i>  
+        </div>  
+        <div class="budget-card" onclick="showPage('ai')">  
+          <span class="budget-emoji">🤖</span>  
+          <div><div class="budget-range">Ask AI</div><div class="budget-desc">Tell us your budget, we find the rest</div></div>  
+          <i class="fa-solid fa-chevron-right budget-arrow" style="color:var(--purple)"></i>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- FEATURES GRID -->  
+  <div class="section">  
+    <span class="section-label">⚡ Features</span>  
+    <h2 class="section-title">Built to Save You Money</h2>  
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin-top:2.5rem">  
+      <div style="background:var(--card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border)">  
+        <div style="font-size:1.8rem;margin-bottom:.8rem">📅</div>  
+        <div style="font-weight:700;margin-bottom:.4rem">Flexible Date Finder</div>  
+        <div style="font-size:.85rem;color:var(--text-muted);line-height:1.6">See a price calendar and pick the cheapest travel window automatically.</div>  
+      </div>  
+      <div style="background:var(--card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border)">  
+        <div style="font-size:1.8rem;margin-bottom:.8rem">🛫</div>  
+        <div style="font-weight:700;margin-bottom:.4rem">Alt Airport Search</div>  
+        <div style="font-size:.85rem;color:var(--text-muted);line-height:1.6">Save up to 40% by flying from or to a nearby airport — we find it for you.</div>  
+      </div>  
+      <div style="background:var(--card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border)">  
+        <div style="font-size:1.8rem;margin-bottom:.8rem">🔔</div>  
+        <div style="font-weight:700;margin-bottom:.4rem">Price Drop Alerts</div>  
+        <div style="font-size:.85rem;color:var(--text-muted);line-height:1.6">Set a target price and get notified the moment a deal matches your budget.</div>  
+      </div>  
+      <div style="background:var(--card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border)">  
+        <div style="font-size:1.8rem;margin-bottom:.8rem">🌍</div>  
+        <div style="font-weight:700;margin-bottom:.4rem">"Anywhere" Search</div>  
+        <div style="font-size:.85rem;color:var(--text-muted);line-height:1.6">No idea where to go? Let AI pick your cheapest destination from any departure city.</div>  
+      </div>  
+      <div style="background:var(--card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border)">  
+        <div style="font-size:1.8rem;margin-bottom:.8rem">👥</div>  
+        <div style="font-weight:700;margin-bottom:.4rem">Group Travel Mode</div>  
+        <div style="font-size:.85rem;color:var(--text-muted);line-height:1.6">Compare prices for groups — including split-payment options and apartment alternatives.</div>  
+      </div>  
+      <div style="background:var(--card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border)">  
+        <div style="font-size:1.8rem;margin-bottom:.8rem">♻️</div>  
+        <div style="font-weight:700;margin-bottom:.4rem">Eco-Smart Routing</div>  
+        <div style="font-size:.85rem;color:var(--text-muted);line-height:1.6">Filter by carbon footprint and choose greener travel options without breaking the bank.</div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- NEWSLETTER -->  
+  <div class="section" style="padding-top:0">  
+    <div class="newsletter">  
+      <h2>🔥 Get Deals Before Everyone Else</h2>  
+      <p>Join 280,000 smart travelers who save an average of €127 per trip with our weekly deals digest.</p>  
+      <div class="newsletter-form">  
+        <input type="email" placeholder="your@email.com" />  
+        <button onclick="showToast('🎉 You are subscribed! Welcome aboard!')">Subscribe Free</button>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- FOOTER -->  
+  <footer>  
+    <div class="footer-inner">  
+      <div class="footer-top">  
+        <div class="footer-brand">  
+          <div class="logo" style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">  
+            <div class="logo-icon"><i class="fa-solid fa-plane"></i></div>  
+            <span class="logo-text" style="font-size:1.2rem">Tripoupa</span>  
+          </div>  
+          <p>The smartest way to find the cheapest combination of flights, hotels, and experiences worldwide.</p>  
+        </div>  
+        <div class="footer-col">  
+          <h4>Product</h4>  
+          <a>How It Works</a><a>AI Assistant</a><a>Price Alerts</a><a>Mobile App</a>  
+        </div>  
+        <div class="footer-col">  
+          <h4>Destinations</h4>  
+          <a>Europe</a><a>Asia</a><a>Americas</a><a>Africa</a>  
+        </div>  
+        <div class="footer-col">  
+          <h4>Company</h4>  
+          <a>About</a><a>Blog</a><a>Careers</a><a>Press</a><a>Privacy</a>  
+        </div>  
+      </div>  
+      <div class="footer-bottom">  
+        <div class="footer-copy">© 2025 Tripoupa. All prices include taxes. We earn a commission from partners — never from you.</div>  
+        <div class="footer-socials">  
+          <a><i class="fa-brands fa-twitter"></i></a>  
+          <a><i class="fa-brands fa-instagram"></i></a>  
+          <a><i class="fa-brands fa-tiktok"></i></a>  
+          <a><i class="fa-brands fa-youtube"></i></a>  
+        </div>  
+      </div>  
+    </div>  
+  </footer>  
+</div>  
+  
+<!-- ══════════════════════════════════════  
+     RESULTS PAGE  
+══════════════════════════════════════ -->  
+<div class="page" id="page-results">  
+  <div class="results-hero">  
+    <div class="results-hero-inner">  
+      <div class="results-crumb">🏠 Home / <span>Search Results</span></div>  
+      <h1>✈️ Paris → Anywhere · May 22–29 · 2 Travelers</h1>  
+      <p>AI found 47 smart packages matching your budget of €800 — sorted by best value</p>  
+      <div class="mini-search">  
+        <div class="mini-field"><i class="fa-solid fa-location-dot"></i> Paris, CDG</div>  
+        <div class="mini-sep">→</div>  
+        <div class="mini-field"><i class="fa-solid fa-globe"></i> Anywhere</div>  
+        <div class="mini-sep">|</div>  
+        <div class="mini-field"><i class="fa-solid fa-calendar"></i> May 22 – 29</div>  
+        <div class="mini-sep">|</div>  
+        <div class="mini-field"><i class="fa-solid fa-users"></i> 2 adults</div>  
+        <div class="mini-sep">|</div>  
+        <div class="mini-field"><i class="fa-solid fa-wallet"></i> €800 budget</div>  
+        <button class="mini-edit" onclick="showPage('home')">✏️ Modify</button>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <div class="results-body">  
+    <!-- FILTERS -->  
+    <div class="filters-panel">  
+      <div class="filter-card">  
+        <div class="filter-title">Filters <span class="filter-clear">Reset all</span></div>  
+        <div class="filter-group">  
+          <div class="filter-label">Total Budget (pp)</div>  
+          <input type="range" min="100" max="2000" value="800" style="width:100%" />  
+          <div class="price-range-bar"><span>€100</span><span>€800</span><span>€2000</span></div>  
+        </div>  
+        <div class="filter-group">  
+          <div class="filter-label">Trip Type</div>  
+          <div class="filter-options">  
+            <label class="filter-opt"><input type="checkbox" checked /> Flight + Hotel</label>  
+            <label class="filter-opt"><input type="checkbox" /> Hotel Only</label>  
+            <label class="filter-opt"><input type="checkbox" /> Flight Only</label>  
+            <label class="filter-opt"><input type="checkbox" /> Packages</label>  
+          </div>  
+        </div>  
+        <div class="filter-group">  
+          <div class="filter-label">Stops</div>  
+          <div class="filter-options">  
+            <label class="filter-opt"><input type="checkbox" checked /> Non-stop</label>  
+            <label class="filter-opt"><input type="checkbox" checked /> 1 Stop</label>  
+            <label class="filter-opt"><input type="checkbox" /> 2+ Stops</label>  
+          </div>  
+        </div>  
+        <div class="filter-group">  
+          <div class="filter-label">Hotel Stars</div>  
+          <div class="filter-options">  
+            <label class="filter-opt"><input type="checkbox" /> ⭐⭐ (2★)</label>  
+            <label class="filter-opt"><input type="checkbox" checked /> ⭐⭐⭐ (3★)</label>  
+            <label class="filter-opt"><input type="checkbox" checked /> ⭐⭐⭐⭐ (4★)</label>  
+            <label class="filter-opt"><input type="checkbox" /> ⭐⭐⭐⭐⭐ (5★)</label>  
+          </div>  
+        </div>  
+        <div class="filter-group">  
+          <div class="filter-label">Climate</div>  
+          <div class="filter-options">  
+            <label class="filter-opt"><input type="checkbox" /> 🌞 Warm (20°C+)</label>  
+            <label class="filter-opt"><input type="checkbox" /> ❄️ Cool</label>  
+            <label class="filter-opt"><input type="checkbox" /> 🌧️ Any</label>  
+          </div>  
+        </div>  
+        <div class="filter-group">  
+          <div class="filter-label">Duration</div>  
+          <div class="filter-options">  
+            <label class="filter-opt"><input type="checkbox" /> Weekend (2–3 nights)</label>  
+            <label class="filter-opt"><input type="checkbox" checked /> Short (4–6 nights)</label>  
+            <label class="filter-opt"><input type="checkbox" /> Week (7+ nights)</label>  
+          </div>  
+        </div>  
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.5rem">Apply Filters</button>  
+      </div>  
+      <div class="filter-card" style="background:linear-gradient(135deg,rgba(26,111,244,.05),rgba(124,58,237,.05));border-color:rgba(124,58,237,.2)">  
+        <div style="font-size:.85rem;font-weight:700;margin-bottom:.6rem">🤖 Ask AI to filter</div>  
+        <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:.8rem">Describe what you want and let AI refine the results</div>  
+        <button class="btn btn-ghost" style="width:100%;justify-content:center;font-size:.8rem" onclick="showPage('ai')"><i class="fa-solid fa-robot"></i> Open AI Assistant</button>  
+      </div>  
+    </div>  
+  
+    <!-- RESULTS LIST -->  
+    <div class="results-main">  
+      <div class="price-alert">  
+        <i class="fa-solid fa-fire" style="color:var(--orange)"></i>  
+        <strong>Price drop alert:</strong> Athens is 23% cheaper than last week! Act fast — 8 deals left.  
+      </div>  
+      <div class="sort-bar">  
+        <span class="sort-label">Sort by:</span>  
+        <div class="sort-chips">  
+          <button class="sort-chip"        onclick="setSort(this)">🔥 Best Value</button>  
+          <button class="sort-chip active" onclick="setSort(this)">💰 Cheapest</button>  
+          <button class="sort-chip"        onclick="setSort(this)">✈️ Fastest</button>  
+          <button class="sort-chip"        onclick="setSort(this)">⭐ Top Rated</button>  
+          <button class="sort-chip"        onclick="setSort(this)">💚 Eco</button>  
+        </div>  
+        <span class="results-count">47 results</span>  
+      </div>  
+  
+      <!-- Result 1 — Featured -->  
+      <div class="result-item featured" onclick="showPage('detail')">  
+        <div class="result-badge">🏆 AI Best Pick — Saves the most for your budget</div>  
+        <div class="result-main">  
+          <div class="result-img" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400')"></div>  
+          <div class="result-content">  
+            <div class="result-top">  
+              <div>  
+                <div class="result-dest">🇬🇷 Athens, Greece</div>  
+                <div style="font-size:.8rem;color:var(--text-muted);margin-top:.1rem">May 22 – 29 · 7 nights · 2 adults</div>  
+              </div>  
+              <div class="result-save-tag">🎉 Save €157</div>  
+            </div>  
+            <div class="result-tags">  
+              <span class="rtag">✈️ Direct flight</span><span class="rtag">🏨 Athena Palace 4★</span>  
+              <span class="rtag">🍳 Breakfast incl.</span><span class="rtag">🚶 City center</span><span class="rtag">🌡️ 28°C avg</span>  
+            </div>  
+            <div class="result-segments">  
+              <div class="segment"><div class="segment-label">Outbound</div><div class="segment-val">CDG → ATH · 3h 20m</div><div style="font-size:.75rem;color:var(--text-muted)">Air France · 08:15 → 12:35</div></div>  
+              <div class="segment"><div class="segment-label">Return</div><div class="segment-val">ATH → CDG · 3h 30m</div><div style="font-size:.75rem;color:var(--text-muted)">Air France · 14:00 → 17:30</div></div>  
+              <div class="segment"><div class="segment-label">Hotel</div><div class="segment-val">Athena Palace ⭐⭐⭐⭐</div><div style="font-size:.75rem;color:var(--text-muted)">2 beds · Free cancellation</div></div>  
+            </div>  
+          </div>  
+          <div class="result-price-col">  
+            <div>  
+              <div class="result-price-label">Total for 2 adults</div>  
+              <div class="result-price-was">€455</div>  
+              <div class="result-price-main">€298</div>  
+              <div class="result-price-pp">€149 per person</div>  
+            </div>  
+            <button class="btn btn-primary" style="width:100%;justify-content:center">View Deal →</button>  
+          </div>  
+        </div>  
+      </div>  
+  
+      <!-- Result 2 -->  
+      <div class="result-item" onclick="showPage('detail')">  
+        <div class="result-main">  
+          <div class="result-img" style="background-image:url('https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?w=400')"></div>  
+          <div class="result-content">  
+            <div class="result-top">  
+              <div>  
+                <div class="result-dest">🇵🇹 Lisbon, Portugal</div>  
+                <div style="font-size:.8rem;color:var(--text-muted);margin-top:.1rem">May 22 – 27 · 5 nights · 2 adults</div>  
+              </div>  
+              <div class="result-save-tag">💚 Save €132</div>  
+            </div>  
+            <div class="result-tags">  
+              <span class="rtag">✈️ Direct flight</span><span class="rtag">🏨 Baixa Boutique 4★</span>  
+              <span class="rtag">🌡️ 22°C avg</span><span class="rtag">🌊 Near coast</span>  
+            </div>  
+            <div class="result-segments">  
+              <div class="segment"><div class="segment-label">Outbound</div><div class="segment-val">CDG → LIS · 2h 10m</div><div style="font-size:.75rem;color:var(--text-muted)">TAP · 06:45 → 08:55</div></div>  
+              <div class="segment"><div class="segment-label">Return</div><div class="segment-val">LIS → CDG · 2h 20m</div><div style="font-size:.75rem;color:var(--text-muted)">TAP · 19:00 → 21:20</div></div>  
+              <div class="segment"><div class="segment-label">Hotel</div><div class="segment-val">Baixa Boutique ⭐⭐⭐⭐</div><div style="font-size:.75rem;color:var(--text-muted)">Twins · Rooftop pool</div></div>  
+            </div>  
+          </div>  
+          <div class="result-price-col">  
+            <div>  
+              <div class="result-price-label">Total for 2 adults</div>  
+              <div class="result-price-was">€521</div>  
+              <div class="result-price-main">€389</div>  
+              <div class="result-price-pp">€194 per person</div>  
+            </div>  
+            <button class="btn btn-primary" style="width:100%;justify-content:center">View Deal →</button>  
+          </div>  
+        </div>  
+      </div>  
+  
+      <!-- Result 3 -->  
+      <div class="result-item" onclick="showPage('detail')">  
+        <div class="result-main">  
+          <div class="result-img" style="background-image:url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400')"></div>  
+          <div class="result-content">  
+            <div class="result-top">  
+              <div>  
+                <div class="result-dest">🇪🇸 Barcelona, Spain</div>  
+                <div style="font-size:.8rem;color:var(--text-muted);margin-top:.1rem">May 23 – 28 · 5 nights · 2 adults</div>  
+              </div>  
+              <div class="result-save-tag">💚 Save €147</div>  
+            </div>  
+            <div class="result-tags">  
+              <span class="rtag">✈️ Direct flight</span><span class="rtag">🏨 Eixample 4★</span>  
+              <span class="rtag">🏖️ Beach access</span><span class="rtag">🌡️ 24°C avg</span>  
+            </div>  
+            <div class="result-segments">  
+              <div class="segment"><div class="segment-label">Outbound</div><div class="segment-val">CDG → BCN · 1h 45m</div><div style="font-size:.75rem;color:var(--text-muted)">Vueling · 07:00 → 08:45</div></div>  
+              <div class="segment"><div class="segment-label">Return</div><div class="segment-val">BCN → CDG · 1h 55m</div><div style="font-size:.75rem;color:var(--text-muted)">Vueling · 20:10 → 22:05</div></div>  
+              <div class="segment"><div class="segment-label">Hotel</div><div class="segment-val">Eixample Hotel ⭐⭐⭐⭐</div><div style="font-size:.75rem;color:var(--text-muted)">Standard · Free wifi</div></div>  
+            </div>  
+          </div>  
+          <div class="result-price-col">  
+            <div>  
+              <div class="result-price-label">Total for 2 adults</div>  
+              <div class="result-price-was">€489</div>  
+              <div class="result-price-main">€342</div>  
+              <div class="result-price-pp">€171 per person</div>  
+            </div>  
+            <button class="btn btn-primary" style="width:100%;justify-content:center">View Deal →</button>  
+          </div>  
+        </div>  
+      </div>  
+  
+      <div style="text-align:center;padding:2rem">  
+        <button class="btn btn-ghost btn-lg" onclick="showToast('Loading more deals...')">  
+          <i class="fa-solid fa-arrow-down"></i> Load 20 more results  
+        </button>  
+      </div>  
+    </div>  
+  </div>  
+</div>  
+  
+<!-- ══════════════════════════════════════  
+     DETAIL PAGE  
+══════════════════════════════════════ -->  
+<div class="page" id="page-detail">  
+  <div class="detail-hero">  
+    <div class="detail-hero-inner">  
+      <div class="detail-left">  
+        <div style="color:rgba(255,255,255,.5);font-size:.8rem;margin-bottom:.8rem;cursor:pointer" onclick="showPage('results')">← Back to results</div>  
+        <h1>🇬🇷 Athens, Greece</h1>  
+        <p>May 22 – 29, 2025 · 7 nights · 2 adults · Direct flight</p>  
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.5rem">  
+          <div class="detail-pill"><i class="fa-solid fa-tag"></i> Save €157 vs average</div>  
+          <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:.4rem 1rem;color:rgba(255,255,255,.8);font-size:.85rem">⭐ 4.8 / 5 · 1,240 reviews</div>  
+        </div>  
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap">  
+          <button class="btn btn-green btn-lg" onclick="showToast('Redirecting to Booking.com...')"><i class="fa-solid fa-arrow-up-right-from-square"></i> Book Now — €298</button>  
+          <button class="btn btn-ghost" style="border-color:rgba(255,255,255,.3);color:#fff" onclick="showToast('🔔 Price alert set!')"><i class="fa-solid fa-bell"></i> Set Alert</button>  
+        </div>  
+      </div>  
+      <div class="detail-img-wrap">  
+        <div style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800')"></div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <div class="detail-body">  
+    <div class="detail-main">  
+      <!-- Savings Breakdown -->  
+      <div class="detail-section" style="background:linear-gradient(135deg,var(--green-light),rgba(0,196,140,.05));border-color:rgba(0,196,140,.2)">  
+        <h3><i class="fa-solid fa-piggy-bank"></i> Your Savings Breakdown</h3>  
+        <div class="savings-breakdown">  
+          <div class="savings-row"><span>Average flight price (CDG→ATH return)</span><span>€214</span></div>  
+          <div class="savings-row"><span>Your flight price</span><span style="color:var(--green-dark)">€148</span></div>  
+          <div class="savings-row save-row"><span>✅ Flight savings</span><span>−€66</span></div>  
+          <div class="savings-row"><span>Average 4★ hotel (7 nights Athens)</span><span>€241</span></div>  
+          <div class="savings-row"><span>Your hotel price</span><span style="color:var(--green-dark)">€150</span></div>  
+          <div class="savings-row save-row"><span>✅ Hotel savings</span><span>−€91</span></div>  
+          <div class="savings-row total"><span>💰 Total saved vs booking separately</span><span style="color:var(--green-dark);font-size:1.2rem">−€157</span></div>  
+        </div>  
+      </div>  
+  
+      <!-- Flight Details -->  
+      <div class="detail-section">  
+        <h3><i class="fa-solid fa-plane"></i> Flight Details</h3>  
+        <div style="font-size:.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.8rem">Outbound Flight</div>  
+        <div class="flight-route">  
+          <div class="route-time"><div class="time">08:15</div><div class="airport">CDG · Paris</div></div>  
+          <div class="route-line">  
+            <div class="route-dur">3h 20m · Direct</div>  
+            <div class="route-bar"></div>  
+            <div class="route-stop">✈️ No stops</div>  
+          </div>  
+          <div class="route-time"><div class="time">12:35</div><div class="airport">ATH · Athens</div></div>  
+        </div>  
+        <div class="airline-info" style="margin-bottom:1.5rem"><i class="fa-solid fa-plane-departure"></i> Air France · AF1234 · Economy · 23kg bag included</div>  
+        <div style="font-size:.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.8rem">Return Flight</div>  
+        <div class="flight-route">  
+          <div class="route-time"><div class="time">14:00</div><div class="airport">ATH · Athens</div></div>  
+          <div class="route-line">  
+            <div class="route-dur">3h 30m · Direct</div>  
+            <div class="route-bar" style="background:linear-gradient(to right,var(--green),var(--blue))"></div>  
+            <div class="route-stop">✈️ No stops</div>  
+          </div>  
+          <div class="route-time"><div class="time">17:30</div><div class="airport">CDG · Paris</div></div>  
+        </div>  
+        <div class="airline-info"><i class="fa-solid fa-plane-arrival"></i> Air France · AF1235 · Economy · 23kg bag included</div>  
+      </div>  
+  
+      <!-- Hotel Details -->  
+      <div class="detail-section">  
+        <h3><i class="fa-solid fa-hotel"></i> Hotel Details</h3>  
+        <div class="hotel-row">  
+          <div class="hotel-img" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=300')"></div>  
+          <div>  
+            <div class="hotel-name">Athena Palace Hotel</div>  
+            <div class="hotel-stars">★★★★ (4.8/5 · 892 reviews)</div>  
+            <div class="hotel-amens">🛁 En-suite · 🍳 Breakfast · 🏊 Pool · 🅿️ Parking · 📶 Free WiFi</div>  
+            <div style="font-size:.75rem;color:var(--text-muted);margin-top:.3rem">📍 Syntagma Square, Athens Centre · 5 min walk to Acropolis</div>  
+          </div>  
+          <div class="hotel-price">€150<br/><span style="font-size:.7rem;font-weight:400;color:var(--text-muted)">7 nights total</span></div>  
+        </div>  
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem">  
+          <span class="rtag">🛏️ Twin/Double room</span><span class="rtag">🔄 Free cancellation</span>  
+          <span class="rtag">✅ No prepayment</span><span class="rtag">🍳 Breakfast for 2</span>  
+          <span class="rtag">🏊 Outdoor pool</span><span class="rtag">📶 Free WiFi</span>  
+        </div>  
+      </div>  
+  
+      <!-- Experiences -->  
+      <div class="detail-section">  
+        <h3><i class="fa-solid fa-compass"></i> AI-Recommended Experiences</h3>  
+        <p style="font-size:.84rem;color:var(--text-muted);margin-bottom:1rem">Add local experiences to make your trip unforgettable — our AI picked these based on best value in Athens</p>  
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem">  
+          <div style="background:var(--bg);border-radius:12px;padding:.9rem;border:1px solid var(--border);cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">  
+            <div style="font-size:1.5rem">🏛️</div>  
+            <div style="font-weight:700;font-size:.88rem;margin:.3rem 0">Acropolis Tour</div>  
+            <div style="font-size:.78rem;color:var(--text-muted)">Skip-the-line · 2.5h</div>  
+            <div style="color:var(--blue);font-weight:700;margin-top:.4rem">€18/person</div>  
+          </div>  
+          <div style="background:var(--bg);border-radius:12px;padding:.9rem;border:1px solid var(--border);cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">  
+            <div style="font-size:1.5rem">⛵</div>  
+            <div style="font-weight:700;font-size:.88rem;margin:.3rem 0">Aegean Cruise</div>  
+            <div style="font-size:.78rem;color:var(--text-muted)">Day cruise · Islands</div>  
+            <div style="color:var(--blue);font-weight:700;margin-top:.4rem">€65/person</div>  
+          </div>  
+          <div style="background:var(--bg);border-radius:12px;padding:.9rem;border:1px solid var(--border);cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">  
+            <div style="font-size:1.5rem">🍽️</div>  
+            <div style="font-weight:700;font-size:.88rem;margin:.3rem 0">Food Tour</div>  
+            <div style="font-size:.78rem;color:var(--text-muted)">3h · Monastiraki</div>  
+            <div style="color:var(--blue);font-weight:700;margin-top:.4rem">€29/person</div>  
+          </div>  
+        </div>  
+      </div>  
+    </div>  
+  
+    <!-- BOOKING SIDEBAR -->  
+    <div class="detail-sidebar">  
+      <div class="booking-card">  
+        <h3>🎫 Book This Trip</h3>  
+        <div class="booking-total">  
+          <div class="booking-total-label">Total price for 2 adults</div>  
+          <div class="booking-total-price">€298</div>  
+          <div style="font-size:.75rem;color:var(--text-muted);margin-top:.2rem">€149 per person · All taxes incl.</div>  
+        </div>  
+        <div class="booking-save-banner">  
+          <i class="fa-solid fa-piggy-bank"></i> You save <strong>€157</strong> compared to booking separately!  
+        </div>  
+        <p style="font-size:.78rem;color:var(--text-muted);margin-bottom:.8rem">Choose your preferred booking partner:</p>  
+        <a class="partner-btn" onclick="showToast('🔗 Redirecting to Booking.com...')">  
+          <div class="partner-logo" style="background:#003580">bk</div>  
+          <div class="partner-info"><div class="partner-name">Booking.com</div><div class="partner-price">Hotel from €150 · Free cancellation</div></div>  
+          <i class="fa-solid fa-arrow-up-right-from-square partner-arrow"></i>  
+        </a>  
+        <a class="partner-btn" onclick="showToast('🔗 Redirecting to Kiwi.com...')">  
+          <div class="partner-logo" style="background:#29b474">kw</div>  
+          <div class="partner-info"><div class="partner-name">Kiwi.com</div><div class="partner-price">Flight from €148 · 23kg included</div></div>  
+          <i class="fa-solid fa-arrow-up-right-from-square partner-arrow"></i>  
+        </a>  
+        <a class="partner-btn" onclick="showToast('🔗 Redirecting to Expedia...')">  
+          <div class="partner-logo" style="background:#00355f">ex</div>  
+          <div class="partner-info"><div class="partner-name">Expedia Bundle</div><div class="partner-price">Flight + Hotel package €289</div></div>  
+          <i class="fa-solid fa-arrow-up-right-from-square partner-arrow"></i>  
+        </a>  
+        <div style="text-align:center;font-size:.72rem;color:var(--text-muted);margin:.8rem 0">or</div>  
+        <button class="btn btn-ghost" style="width:100%;justify-content:center;font-size:.82rem" onclick="showToast('🔔 Alert set! We will email you if price drops.')"><i class="fa-solid fa-bell"></i> Set Price Drop Alert</button>  
+        <div class="trust-badges">  
+          <div class="trust-badge"><i class="fa-solid fa-shield-check"></i>Secure</div>  
+          <div class="trust-badge"><i class="fa-solid fa-rotate-left"></i>Free cancel</div>  
+          <div class="trust-badge"><i class="fa-solid fa-star"></i>Verified</div>  
+        </div>  
+      </div>  
+  
+      <div style="background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:1.2rem;margin-top:1rem">  
+        <div style="font-size:.85rem;font-weight:700;margin-bottom:.8rem">🌡️ Athens in May</div>  
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;font-size:.8rem">  
+          <div style="background:var(--bg);border-radius:8px;padding:.6rem;text-align:center"><div style="font-size:1.2rem">☀️</div><div style="font-weight:700">28°C</div><div style="color:var(--text-muted)">Avg temp</div></div>  
+          <div style="background:var(--bg);border-radius:8px;padding:.6rem;text-align:center"><div style="font-size:1.2rem">🌧️</div><div style="font-weight:700">3 days</div><div style="color:var(--text-muted)">Rain / month</div></div>  
+          <div style="background:var(--bg);border-radius:8px;padding:.6rem;text-align:center"><div style="font-size:1.2rem">💧</div><div style="font-weight:700">22°C</div><div style="color:var(--text-muted)">Sea temp</div></div>  
+          <div style="background:var(--bg);border-radius:8px;padding:.6rem;text-align:center"><div style="font-size:1.2rem">⏰</div><div style="font-weight:700">14h</div><div style="color:var(--text-muted)">Daylight</div></div>  
+        </div>  
+      </div>  
+  
+      <div style="background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(26,111,244,.05));border-radius:var(--radius);border:1px dashed rgba(124,58,237,.2);padding:1.2rem;margin-top:1rem;text-align:center">  
+        <div style="font-size:1.5rem;margin-bottom:.5rem">🤖</div>  
+        <div style="font-size:.85rem;font-weight:700;margin-bottom:.3rem">Want something different?</div>  
+        <div style="font-size:.78rem;color:var(--text-muted);margin-bottom:.8rem">Ask our AI for personalized alternatives based on your taste</div>  
+        <button class="btn btn-ghost" style="width:100%;justify-content:center;font-size:.8rem;border-color:rgba(124,58,237,.3);color:var(--purple)" onclick="showPage('ai')"><i class="fa-solid fa-robot"></i> Ask AI for Alternatives</button>  
+      </div>  
+    </div>  
+  </div>  
+</div>  
+  
+<!-- ══════════════════════════════════════  
+     AI ASSISTANT PAGE  
+══════════════════════════════════════ -->  
+<div class="page ai-page" id="page-ai">  
+  <div class="ai-page-inner">  
+    <div class="ai-header">  
+      <div class="ai-logo-big">✈️</div>  
+      <h2>Tripoupa AI Travel Assistant</h2>  
+      <p>Tell me where you want to go, your budget, and travel style — I'll find the best deals for you.</p>  
+    </div>  
+  
+    <div class="chat-window">  
+      <div class="chat-messages" id="chatMessages">  
+        <div class="msg ai">  
+          <div class="msg-avatar" style="background:linear-gradient(135deg,var(--blue),var(--purple))">✈️</div>  
+          <div class="msg-content">  
+            <div class="msg-bubble">  
+              👋 Hi! I'm your Tripoupa AI travel assistant. I'm here to help you find the <strong>cheapest and smartest</strong> travel options.<br/><br/>  
+              Tell me anything like:<br/>  
+              • "I want a beach trip under €400 from London"<br/>  
+              • "Best warm destinations in November under €600"<br/>  
+              • "Weekend in Europe for 2 people, €250 max"<br/><br/>  
+              Where would you like to go? 🌍  
+            </div>  
+            <div class="msg-time">AI Assistant · Just now</div>  
+          </div>  
+        </div>  
+      </div>  
+  
+      <div class="quick-prompts">  
+        <button class="qprompt" onclick="sendQuickPrompt('Warm beach under €300 for a week from Paris')">🏖️ Beach under €300</button>  
+        <button class="qprompt" onclick="sendQuickPrompt('Cheapest city break in Europe this weekend')">🌆 Cheap city break</button>  
+        <button class="qprompt" onclick="sendQuickPrompt('Family trip for 4 people, budget €1500')">👨‍👩‍👧 Family trip</button>  
+        <button class="qprompt" onclick="sendQuickPrompt('Flexible dates — when is the cheapest week to fly to Bali?')">📅 Flexible dates Bali</button>  
+        <button class="qprompt" onclick="sendQuickPrompt('Surprise me with the cheapest destination under €200')">🎲 Surprise me!</button>  
+      </div>  
+  
+      <div class="chat-input-bar">  
+        <div class="chat-input-wrap">  
+          <textarea id="chatInput"  
+            placeholder="Ask anything — 'I want a warm trip for 2 under €500 from Berlin'..."  
+            rows="1"  
+            onkeydown="handleChatKey(event)"  
+            oninput="autoResize(this)"></textarea>  
+        </div>  
+        <button class="send-btn" onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button>  
+      </div>  
+    </div>  
+  </div>  
+</div>  
+  
+<!-- TOAST -->  
+<div id="toast" style="display:none" class="toast"></div>  
+  
+<!-- JavaScript -->  
+<script src="app.js"></script>  
+</body>  
+</html>  
