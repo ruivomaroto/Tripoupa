@@ -336,3 +336,29 @@ function executeSearch() {
     showPage('results');
   }, 1000);
 }
+/* ══════════════════════════════════════════
+   LOGICA DE PESQUISA REAL
+══════════════════════════════════════════ */
+function executeSearch() {
+  // 1. Vai buscar o que escreveste nos inputs
+  const destination = document.getElementById('dest-input').value;
+  const from = document.querySelector('input[placeholder="Paris, CDG"]').value;
+
+  if (!destination) {
+    showToast("🌍 Por favor, digite um destino!");
+    return;
+  }
+
+  // 2. Atualiza o título da página de resultados com o teu destino
+  const titleEl = document.getElementById('results-title');
+  if (titleEl) {
+    titleEl.innerHTML = `✈️ ${from} → ${destination} · Best Deals Found`;
+  }
+
+  showToast(`🔍 Searching deals for ${destination}...`);
+
+  // 3. Muda para a página de resultados
+  setTimeout(() => {
+    showPage('results');
+  }, 1000);
+}
