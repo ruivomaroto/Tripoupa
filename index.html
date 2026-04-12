@@ -127,7 +127,18 @@
     <button class="btn btn-ghost" onclick="showPage('home')">Back to Search</button>
   </div>
 </div>
-
+<div class="section" style="background: var(--dark); color: white; padding: 4rem 2rem;">
+  <div style="max-width: 800px; margin: auto; text-align: center;">
+    <span class="section-label" style="background:rgba(255,255,255,0.1); color: #a5c8ff">🤖 AI Assistant</span>
+    <h2 style="color: white; margin-top: 1rem;">O teu consultor de viagens 24/7</h2>
+    <p style="color: rgba(255,255,255,0.7); margin-bottom: 2rem;">Diz-me para onde queres ir e eu encontro a melhor oferta.</p>
+    
+    <div style="background: white; padding: 10px; border-radius: 12px; display: flex; gap: 10px;">
+      <input type="text" id="ai-input" placeholder="Ex: Quero ir para Londres no próximo mês..." style="flex: 1; border: none; padding: 10px; outline: none; font-size: 1rem;">
+      <button class="btn btn-primary" onclick="askAI()">Perguntar à IA</button>
+    </div>
+  </div>
+</div>
 <script src="app.js"></script>
 </body>
 </html>
