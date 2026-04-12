@@ -317,22 +317,16 @@ function autoResize(el) {
   el.style.height = 'auto';
   el.style.height = Math.min(el.scrollHeight, 120) + 'px';
 }
-/* ══════════════════════════════════════════
-   LOGICA DE PESQUISA - VERSÃO LIMPA
-══════════════════════════════════════════ */
 function executeSearch() {
-  const fromInput = document.querySelector('input[placeholder="Paris, CDG"]');
-  const toInput = document.getElementById('dest-input');
-  
-  const from = fromInput ? fromInput.value : "Paris";
-  const to = toInput ? toInput.value : "";
+  const from = document.querySelector('input[placeholder="Paris, CDG"]').value;
+  const to = document.getElementById('dest-input').value;
 
   if (!to) {
     showToast("🌍 Por favor, digite um destino!");
     return;
   }
 
-  // Atualiza o título (visto na tua imagem IMG_0752)
+  // 1. Atualiza o título visual
   const titleEl = document.getElementById('results-title');
   if (titleEl) {
     titleEl.innerText = `✈️ ${from} → ${to} · Best Deals Found`;
@@ -340,10 +334,12 @@ function executeSearch() {
 
   showToast(`🔍 Searching deals for ${to}...`);
 
+  // 2. ABRE O BOOKING LOGO (Para o navegador não bloquear)
+  const affiliateURL = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(to)}&aid=678910`;
+  window.open(affiliateURL, '_blank');
+
+  // 3. Muda a página do teu site em fundo
   setTimeout(() => {
     showPage('results');
-    // Abre o Booking com o destino real
-    const affiliateURL = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(to)}&aid=678910`;
-    window.open(affiliateURL, '_blank');
-  }, 1000);
+  }, 500);
 }
