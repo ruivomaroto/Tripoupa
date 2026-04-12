@@ -318,47 +318,31 @@ function autoResize(el) {
   el.style.height = Math.min(el.scrollHeight, 120) + 'px';
 }
 /* ══════════════════════════════════════════
-   EXECUTE SEARCH (O QUE FAZ O SITE FUNCIONAR)
+   LOGICA DE PESQUISA - OPÇÃO 1 (BOOKING)
 ══════════════════════════════════════════ */
 function executeSearch() {
-  const destination = document.getElementById('dest-input').value;
-  const budget = document.getElementById('budget-display').textContent;
-
-  if (!destination) {
-    showToast("🌍 Por favor, digite um destino!");
-    return;
-  }
-
-  showToast(`🔍 Searching deals for ${destination} within ${budget}...`);
-
-  // Espera um pouco para simular a IA a pensar e depois muda de página
-  setTimeout(() => {
-    showPage('results');
-  }, 1000);
-}
-/* ══════════════════════════════════════════
-   LOGICA DE PESQUISA REAL
-══════════════════════════════════════════ */
-function executeSearch() {
-  // 1. Vai buscar o que escreveste nos inputs
-  const destination = document.getElementById('dest-input').value;
   const from = document.querySelector('input[placeholder="Paris, CDG"]').value;
+  const to = document.getElementById('dest-input').value;
 
-  if (!destination) {
+  if (!to) {
     showToast("🌍 Por favor, digite um destino!");
     return;
   }
 
-  // 2. Atualiza o título da página de resultados com o teu destino
+  // 1. Atualiza o título na página de resultados
   const titleEl = document.getElementById('results-title');
   if (titleEl) {
-    titleEl.innerHTML = `✈️ ${from} → ${destination} · Best Deals Found`;
+    titleEl.innerText = `✈️ ${from} → ${to} · Best Deals Found`;
   }
 
-  showToast(`🔍 Searching deals for ${destination}...`);
+  showToast(`🔍 Searching deals for ${to}...`);
 
-  // 3. Muda para a página de resultados
+  // 2. Muda a página e abre o Booking num novo separador
   setTimeout(() => {
     showPage('results');
-  }, 1000);
+    
+    // Este é o teu motor de dinheiro:
+    const affiliateURL = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(to)}&aid=678910`;
+    window.open(affiliateURL, '_blank');
+  }, 1200);
 }
