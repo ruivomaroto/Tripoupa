@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
+  (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.src = 'https://emrldtp.cc/NTE3OTQ1.js?t=517945';
+      document.head.appendChild(script);
+  })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tripoupa — Travel Smarter, Spend Less</title>
+  <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
+  (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.src = 'https://emrldtp.cc/NTE3OTQ1.js?t=517945';
+      document.head.appendChild(script);
+  })();
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="logo" onclick="showPage('home')">
+      <div class="logo-icon"><i class="fa-solid fa-plane"></i></div>
+      <span class="logo-text">Tripoupa</span>
+    </a>
+    <div class="nav-links">
+      <a onclick="showPage('home')" class="active">Home</a>
+      <a onclick="showPage('results')">Explore</a>
+      <a onclick="showPage('ai')">AI Assistant <span class="badge-new">NEW</span></a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-primary" onclick="showPage('ai')">
+        <i class="fa-solid fa-robot"></i> Ask AI
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge"><span class="dot"></span> AI-Powered Travel Intelligence</div>
+      <h1>Travel Smarter.<br/>Save <span>Hundreds</span>.</h1>
+      <p>O Tripoupa combina voos e hotéis em pacotes otimizados para encontrar sempre o preço mais baixo.</p>
+
+      <div class="search-card">
+        <div class="search-grid">
+          <div class="search-field">
+            <label>From</label>
+            <input type="text" id="from-input" placeholder="Paris, CDG" value="Paris, CDG" />
+          </div>
+          <div class="search-field">
+            <label>To</label>
+            <input type="text" placeholder="Anywhere 🌍" id="dest-input" />
+          </div>
+          <div class="search-field">
+            <label>Budget</label>
+            <input type="range" min="200" max="5000" value="800" step="50" oninput="updateBudget(this.value)" />
+            <span id="budget-display">€800</span>
+          </div>
+        </div>
+        <div class="search-bottom">
+          <button class="btn btn-primary btn-lg" onclick="executeSearch()" style="width:100%">
+            <i class="fa-solid fa-magnifying-glass"></i> Find My Trip
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item"><div class="stat-val">2.4M+</div><div class="stat-label">Trips compared</div></div>
+      <div class="stat-item"><div class="stat-val">€127</div><div class="stat-label">Avg. savings</div></div>
+      <div class="stat-item"><div class="stat-val">180+</div><div class="stat-label">Destinations</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Cheapest Trips Right Now</h2>
+    <div class="trips-grid">
+      <div class="trip-card">
+        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?w=600')">
+          <div class="trip-dest">Lisbon, Portugal</div>
+        </div>
+        <div class="trip-info">
+          <div class="trip-prices"><span class="trip-price">€389</span> <span class="trip-was">€521</span></div>
+          <button class="btn btn-primary" style="width:100%" onclick="openAffiliate('Lisbon')">View Deal</button>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1555990538-1078ea06e58e?w=600')">
+          <div class="trip-dest">Rome, Italy</div>
+        </div>
+        <div class="trip-info">
+          <div class="trip-prices"><span class="trip-price">€276</span> <span class="trip-was">€381</span></div>
+          <button class="btn btn-primary" style="width:100%" onclick="openAffiliate('Rome')">View Deal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="background:#f9fafb">
+    <h2 class="section-title">How Tripoupa Works</h2>
+    <div class="how-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div class="how-card"><h3>1. Search</h3><p>Enter your budget and destination.</p></div>
+        <div class="how-card"><h3>2. AI Scan</h3><p>We scan 34+ partners for the best combo.</p></div>
+        <div class="how-card"><h3>3. Save</h3><p>Book directly with the cheapest provider.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-results">
+  <div class="results-hero">
+    <h1 id="results-title">Finding deals...</h1>
+    <div class="price-alert"><i class="fa-solid fa-fire"></i> <span id="alert-text">Checking real-time prices...</span></div>
+    <button class="btn btn-ghost" onclick="showPage('home')">Back to Search</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
