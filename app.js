@@ -39,3 +39,18 @@ function showPage(pageId) {
   // Scroll para o topo
   window.scrollTo(0, 0);
 }
+function askAI() {
+  const input = document.getElementById('ai-input').value;
+  
+  if (!input) {
+    alert("🤖 Por favor, escreve um destino ou uma pergunta!");
+    return;
+  }
+
+  // Simula o pensamento da IA
+  alert("🤖 A analisar as melhores opções para: " + input);
+
+  // Redireciona para o Booking com o que o utilizador escreveu
+  const url = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(input)}&aid=678910`;
+  window.open(url, '_blank');
+}
