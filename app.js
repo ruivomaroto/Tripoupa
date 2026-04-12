@@ -317,3 +317,22 @@ function autoResize(el) {
   el.style.height = 'auto';
   el.style.height = Math.min(el.scrollHeight, 120) + 'px';
 }
+/* ══════════════════════════════════════════
+   EXECUTE SEARCH (O QUE FAZ O SITE FUNCIONAR)
+══════════════════════════════════════════ */
+function executeSearch() {
+  const destination = document.getElementById('dest-input').value;
+  const budget = document.getElementById('budget-display').textContent;
+
+  if (!destination) {
+    showToast("🌍 Por favor, digite um destino!");
+    return;
+  }
+
+  showToast(`🔍 Searching deals for ${destination} within ${budget}...`);
+
+  // Espera um pouco para simular a IA a pensar e depois muda de página
+  setTimeout(() => {
+    showPage('results');
+  }, 1000);
+}
