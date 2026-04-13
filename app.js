@@ -1,48 +1,60 @@
-// Garante que as funções estão disponíveis assim que o site carrega
-window.showPage = function(pageId) {
+// --- NAVEGAÇÃO ---
+function showPage(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const target = document.getElementById('page-' + pageId);
     if (target) target.classList.add('active');
     window.scrollTo(0, 0);
-};
+}
 
-window.askAI = function() {
-    const inputField = document.getElementById('ai-input');
-    const msg = inputField ? inputField.value : "";
+// --- ATUALIZAR BUDGET ---
+function updateBudget(val) {
+    const display = document.getElementById('budget-display');
+    if (display) display.innerText = `€${val}`;
+}
 
-    if (!msg || msg.trim() === "") {
-        alert("🤖 Olá! Escreve um destino para eu te ajudar.");
-        return;
-    }
-
-    alert("🤖 A analisar as melhores ofertas para: " + msg);
-
-    // Redireciona para o Booking com o teu AID de teste
-    const url = "https://www.booking.com/searchresults.html?ss=" + encodeURIComponent(msg) + "&aid=678910";
-    
-    setTimeout(() => {
-        window.open(url, '_blank');
-    }, 500);
-};
-
-window.executeSearch = function() {
+// --- PESQUISA PRINCIPAL ---
+function executeSearch() {
     const dest = document.getElementById('dest-input').value;
+    const budget = document.getElementById('budget-range').value;
+
     if (!dest) {
-        alert("🌍 Indica um destino primeiro!");
+        alert("🌍 Please enter a destination!");
         return;
     }
 
+    // Estética: Muda para a página de resultados e simula análise
     showPage('results');
     const title = document.getElementById('results-title');
-    if (title) title.innerHTML = "🔎 Tripoupa AI a pesquisar " + dest + "...";
+    title.innerHTML = `🔎 AI is finding trips to ${dest} under €${budget}...`;
+
+    // Como o Booking não aceitou, vamos usar o Trip.com (que aprova rápido no Travelpayouts)
+    // O link abre com o destino que o utilizador escolheu
+    setTimeout(() => {
+        const url = `https://www.trip.com/search/keyword?keyword=${encodeURIComponent(dest)}&allianceid=3232145&sid=123456`;
+        window.open(url, '_blank');
+        title.innerHTML = `✅ Results found for ${dest}!`;
+    }, 2000);
+}
+
+// --- BOTÕES DOS CARDS (Lisboa, Roma, etc) ---
+function openAffiliate(city) {
+    const url = `https://www.trip.com/search/keyword?keyword=${encodeURIComponent(city)}&allianceid=3232145&sid=123456`;
+    window.open(url, '_blank');
+}
+
+// --- IA FUNCIONAL ---
+function askAI() {
+    const input = document.getElementById('ai-input-text').value;
+    
+    if (!input) {
+        alert("🤖 Tell me where you want to go!");
+        return;
+    }
+
+    alert("🤖 One moment... I'm searching for the best prices for: " + input);
 
     setTimeout(() => {
-        const url = "https://www.booking.com/searchresults.html?ss=" + encodeURIComponent(dest) + "&aid=678910";
+        const url = `https://www.trip.com/search/keyword?keyword=${encodeURIComponent(input)}&allianceid=3232145&sid=123456`;
         window.open(url, '_blank');
-    }, 2000);
-};
-
-window.openAffiliate = function(city) {
-    const url = "https://www.booking.com/searchresults.html?ss=" + encodeURIComponent(city) + "&aid=678910";
-    window.open(url, '_blank');
-};
+    }, 1000);
+}
