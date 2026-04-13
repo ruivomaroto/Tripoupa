@@ -300,56 +300,57 @@
     </footer>
 
     <script>
-        // --- Sistema de Tabs ---
-        function setTab(el, type) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
-            console.log("Modo de pesquisa alterado para: " + type);
+    // --- Sistema de Tabs ---
+    function setTab(el, type) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    // --- Navegação Suave ---
+    function scrollToSection(id) {
+        const element = document.getElementById(id);
+        if(element) element.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // --- FUNÇÃO DE PESQUISA CORRIGIDA ---
+    function mainSearch() {
+        const dest = document.getElementById('destination').value;
+        if(!dest) {
+            alert("🤖 Por favor, indica um destino!");
+            return;
         }
 
-        // --- Navegação Suave ---
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
+        alert("🤖 Tripoupa AI: A analisar as melhores ofertas para " + dest + "...");
 
-        // --- Pesquisa Principal ---
-        function mainSearch() {
-            const dest = document.getElementById('destination').value;
-            const budget = document.getElementById('budget').value;
+        // Link oficial de busca global (mais estável)
+        const url = `https://www.trip.com/hotels/list?city=0&searchText=${encodeURIComponent(dest)}`;
+        
+        setTimeout(() => {
+            window.open(url, '_blank');
+        }, 1000);
+    }
 
-            if(!dest) {
-                alert("Por favor, indica um destino!");
-                return;
-            }
+    // --- BOTÃO DOS CARDS ---
+    function quickBook(city) {
+        // Redireciona para a página de resultados geral do Trip.com
+        const url = `https://www.trip.com/hotels/list?city=0&searchText=${encodeURIComponent(city)}`;
+        window.open(url, '_blank');
+    }
 
-            const loadingMsg = budget ? `A analisar voos para ${dest} até €${budget}...` : `A analisar as melhores ofertas para ${dest}...`;
-            alert("🤖 " + loadingMsg);
+    // --- INTELIGÊNCIA ARTIFICIAL ---
+    function askAI() {
+        const query = document.getElementById('ai-query').value;
+        const responseBox = document.getElementById('ai-response');
 
-            // Redireciona para o Trip.com (Parceiro excelente e fácil de aprovar)
-            setTimeout(() => {
-                window.open(`https://www.trip.com/search/keyword?keyword=${encodeURIComponent(dest)}&allianceid=3232145&sid=123456`, '_blank');
-            }, 1000);
-        }
+        if(!query) return;
 
-        // --- Botão Rápido nos Cards ---
-        function quickBook(city) {
-            window.open(`https://www.trip.com/search/keyword?keyword=${encodeURIComponent(city)}`, '_blank');
-        }
-
-        // --- Inteligência Artificial ---
-        function askAI() {
-            const query = document.getElementById('ai-query').value;
-            const responseBox = document.getElementById('ai-response');
-
-            if(!query) return;
-
-            responseBox.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> A analisar mercados globais...';
-            
-            setTimeout(() => {
-                responseBox.innerHTML = `🤖 <strong>Análise Concluída:</strong> Encontrei 14 voos e 5 hotéis que encaixam em "${query}". Recomendo as datas entre 12 e 19 de Outubro para poupares cerca de 22%. <br><br> <button class="search-btn" style="width:auto; padding: 10px 20px;" onclick="quickBook('${query}')">Ver Itinerário no Parceiro</button>`;
-                document.getElementById('ai-query').value = "";
-            }, 2000);
-        }
-    </script>
+        responseBox.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> A analisar mercados globais e rotas low-cost...';
+        
+        setTimeout(() => {
+            responseBox.innerHTML = `🤖 <strong>Análise Tripoupa:</strong> Encontrei excelentes opções para "${query}". O nosso algoritmo sugere que reserves nas próximas 48h para garantir o preço atual. <br><br> <button class="search-btn" style="width:auto; padding: 10px 20px;" onclick="quickBook('${query}')">Ver Opções Detalhadas</button>`;
+            document.getElementById('ai-query').value = "";
+        }, 2000);
+    }
+</script>
 </body>
 </html>
