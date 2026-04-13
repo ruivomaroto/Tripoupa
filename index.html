@@ -300,56 +300,64 @@
     </footer>
 
     <script>
-    // --- Sistema de Tabs ---
     function setTab(el, type) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         el.classList.add('active');
     }
 
-    // --- Navegação Suave ---
     function scrollToSection(id) {
         const element = document.getElementById(id);
         if(element) element.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // --- FUNÇÃO DE PESQUISA CORRIGIDA ---
     function mainSearch() {
         const dest = document.getElementById('destination').value;
+        const dateInput = document.getElementById('travel-date').value; // Pega a data do calendário
+        
         if(!dest) {
             alert("🤖 Por favor, indica um destino!");
             return;
         }
 
-        alert("🤖 Tripoupa AI: A analisar as melhores ofertas para " + dest + "...");
+        // Se o utilizador não escolher data, usamos a de amanhã por defeito
+        let checkIn = dateInput;
+        if(!checkIn) {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            checkIn = tomorrow.toISOString().split('T')[0];
+        }
 
-        // Link oficial de busca global (mais estável)
-        const url = `https://www.trip.com/hotels/list?city=0&searchText=${encodeURIComponent(dest)}`;
+        alert("🤖 Tripoupa AI: A configurar a sua viagem para " + dest + "...");
+
+        // LINK AVANÇADO: Este link força o Trip.com a ler o destino e a data de Check-in
+        const url = `https://www.trip.com/hotels/list?city=0&searchText=${encodeURIComponent(dest)}&checkIn=${checkIn}`;
         
         setTimeout(() => {
             window.open(url, '_blank');
         }, 1000);
     }
 
-    // --- BOTÃO DOS CARDS ---
     function quickBook(city) {
-        // Redireciona para a página de resultados geral do Trip.com
-        const url = `https://www.trip.com/hotels/list?city=0&searchText=${encodeURIComponent(city)}`;
+        const today = new Date();
+        const dateStr = today.toISOString().split('T')[0];
+        const url = `https://www.trip.com/hotels/list?city=0&searchText=${encodeURIComponent(city)}&checkIn=${dateStr}`;
         window.open(url, '_blank');
     }
 
-    // --- INTELIGÊNCIA ARTIFICIAL ---
     function askAI() {
         const query = document.getElementById('ai-query').value;
         const responseBox = document.getElementById('ai-response');
 
         if(!query) return;
 
-        responseBox.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> A analisar mercados globais e rotas low-cost...';
+        responseBox.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> A analisar mercados...';
         
         setTimeout(() => {
-            responseBox.innerHTML = `🤖 <strong>Análise Tripoupa:</strong> Encontrei excelentes opções para "${query}". O nosso algoritmo sugere que reserves nas próximas 48h para garantir o preço atual. <br><br> <button class="search-btn" style="width:auto; padding: 10px 20px;" onclick="quickBook('${query}')">Ver Opções Detalhadas</button>`;
-            document.getElementById('ai-query').value = "";
-        }, 2000);
+            // A IA "limpa" a frase do utilizador para pegar apenas o destino
+            const keyword = query.replace("Quero ir para ", "").replace("quero ir para ", "");
+            
+            responseBox.innerHTML = `🤖 <strong>Análise Tripoupa:</strong> Encontrei voos e hotéis para "${keyword}". O motor de busca já está configurado com os melhores filtros de poupança. <br><br> <button class="search-btn" style="width:auto; padding: 10px 20px;" onclick="quickBook('${keyword}')">Ver Itinerário IA</button>`;
+        }, 1500);
     }
 </script>
 </body>
